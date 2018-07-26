@@ -132,7 +132,7 @@ exports.generateCalendar = async function(req, res) {
       summary: calendar.event.name[i]
     })
   }
-  fs.writeFile(path.join(__dirname, `./public/calendars/${user._id}.ics`), cal.toString(), function(err) {
+  fs.writeFile(`./public/calendars/${user._id}.ics`, cal.toString(), function(err) {
     if (err) throw err
     console.log("Done");
   });
