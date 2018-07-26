@@ -26,7 +26,3 @@ app.use(express.static(path.join(__dirname+'/public')));
 mongoose.connect("mongodb://r00t:alp1ne@ds111299.mlab.com:11299/schedule-to-cal", {
   useNewUrlParser: true
 });
-
-app.listen(8080, function () {
-  console.log('Website is up and running');
-})
