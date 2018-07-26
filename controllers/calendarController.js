@@ -132,10 +132,9 @@ exports.generateCalendar = async function(req, res) {
       summary: calendar.event.name[i]
     })
   }
-  console.log(__dirname);
-  fs.writeFile(`https://calendar.parsuli.net/calendars/${user._id}.ics`, cal.toString(), function(err) {
+  fs.writeFile(path.join(__dirname, `./public/calendars/${user._id}.ics`), cal.toString(), function(err) {
     if (err) throw err
     console.log("Done");
   });
-  res.redirect('https://calendar.google.com/calendar/r?cid=webcal://'+`https://calendar.parsuli.net/calendars/${user._id}.ics`)
+  res.redirect('https://calendar.google.com/calendar/r?cid=webcal://'+path.join(__dirname, `../calendars/${user._id}.ics`))
 };
