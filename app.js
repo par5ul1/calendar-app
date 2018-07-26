@@ -22,6 +22,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use('/', router);
 app.use(express.static(path.join(__dirname+'/public')));
+app.use('/calendars', express.static(path.join(__dirname+'/calendars')));
 
 mongoose.connect("mongodb://r00t:alp1ne@ds111299.mlab.com:11299/schedule-to-cal", {
   useNewUrlParser: true
