@@ -132,15 +132,15 @@ exports.generateCalendar = async function(req, res) {
     })
   }
 
-  fs.readdir('./public', function(err, items) {
-    console.log(items);
+  // fs.readdir('./public', function(err, items) {
+  //   console.log(items);
+  //
+  //   for (var i=0; i<items.length; i++) {
+  //       console.log(items[i]);
+  //   }
+  // });
 
-    for (var i=0; i<items.length; i++) {
-        console.log(items[i]);
-    }
-  });
-
-  fs.writeFileSync(`./calendars/cal.txt`, cal.toString(), function(err) {
+  fs.writeFileSync(`./public/cal.txt`, cal.toString(), function(err) {
     if (err) throw err
     console.log("Done");
   });
