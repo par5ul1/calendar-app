@@ -133,7 +133,7 @@ exports.generateCalendar = async function(req, res) {
     })
   }
   console.log(__dirname);
-  fs.writeFile(`https://calendar.parsuli.net/calendars/${user._id}.ics`), cal.toString(), function(err) {
+  fs.writeFile(`https://calendar.parsuli.net/calendars/${user._id}.ics`, cal.toString(), function(err) {
     if (err) throw err
     console.log("Done");
   });
