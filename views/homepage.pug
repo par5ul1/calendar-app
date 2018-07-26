@@ -3,67 +3,67 @@ script(type="application/javascript", src="//ajax.googleapis.com/ajax/libs/jquer
 script(type="application/javascript", src="js/index.js")
 meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0")
 
-//- if (!req.session.user || !req.session.user.token)
-//-   #hero
-//-     .center
-//-       h1 Hi there!
-//-       h3
-//-         | Before creating your calendar, I need to kindly ask you to log in with 
-//-         a(href="/auth")
-//-           span(style="color: #4885ed;") G
-//-           span(style="color: #db3236;") o
-//-           span(style="color: #f4c20d;") o
-//-           span(style="color: #4885ed;") g
-//-           span(style="color: #3cba54;") l
-//-           span(style="color: #db3236;") e
-//-         |  as this allows me to keep your calendar up to date. Once you log in, you will be redirected back so you can add your classes.
-//- else
-.fullscreen
-  span.progress
-  form(method="POST")
-    #welcome.center(style="position: fixed;")
-      h2 Great, you're all logged in. Just click next and let me know what classes you have.
-      p (HINT: You can navigate the form by pressing left/right arrow keys)
-      button.button(onclick="scrollDiv('#welcome', '#p0', 'next'); return false", style='margin:5px;') Next
-      
-    #p0.center(style="position: fixed; left: 200%")
-      h2 To start off, are you a senior?
-      p (If you are but not IB, select "No")
-      input.checkbox(type='checkbox' name="senior" value="true")
-      label No/Yes
-      br
-      button.toggle(onclick="$(this).toggleClass('isToggled'); $('#p0 .checkbox').attr('checked', $(this).hasClass('isToggled')); $('.isHL').css('display', $(this).hasClass('isToggled') ? 'initial' : 'none'); return false")
-        div
-      //- button(onclick="$(this).addClass('isOn'); $('#isNotSenior--btn').removeClass('isOn'); $('#p0 .checkbox').attr('checked', true); $('.isHL').css('display', 'initial'); $('#p8 .text-box').prop({'readonly': 'true', 'value': 'DP Flex'}); $('#p8 .isHL').css('display', 'none'); return false" style="width: 10vw; margin: 5px 5px 10px 5px;" id="isSenior--btn") Yes
-      //- button(onclick="$(this).addClass('isOn'); $('#isSenior--btn').removeClass('isOn'); $('#p0 .checkbox').attr('checked', false); $('.isHL').css('display', 'none'); $('#p8 .text-box').attr({'readonly': 'false', 'value': ''}); return false" style="width: 10vw; margin: 5px 5px 10px 5px;" id="isNotSenior--btn").isOn No
-      br
-      
-      button.button(onclick="scrollDiv('#p0','#p1','next'); return false", style='margin:5px;') Next
-      
-    each period, index in ["p1","p2","p3","p4","p5","p6","p7","p8"]
-      div(id=period style="position: fixed; left: 200%").center
-        h2 What do you have #{["first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth"][index]} period?
+if (!req.session.user || !req.session.user.token)
+  #hero
+    .center
+      h1 Hi there!
+      h3
+        | Before creating your calendar, I need to kindly ask you to log in with 
+        a(href="/auth")
+          span(style="color: #4885ed;") G
+          span(style="color: #db3236;") o
+          span(style="color: #f4c20d;") o
+          span(style="color: #4885ed;") g
+          span(style="color: #3cba54;") l
+          span(style="color: #db3236;") e
+        |  as this allows me to keep your calendar up to date. Once you log in, you will be redirected back so you can add your classes.
+else
+  .fullscreen
+    span.progress
+    form(method="POST")
+      #welcome.center(style="position: fixed;")
+        h2 Great, you're all logged in. Just click next and let me know what classes you have.
+        p (HINT: You can navigate the form by pressing left/right arrow keys)
+        button.button(onclick="scrollDiv('#welcome', '#p0', 'next'); return false", style='margin:5px;') Next
+        
+      #p0.center(style="position: fixed; left: 200%")
+        h2 To start off, are you a senior?
+        p (If you are but not IB, select "No")
+        input.checkbox(type='checkbox' name="senior" value="true")
+        label No/Yes
         br
-        div(style="text-align: left")
-          label(for='classes['+period+'][value][s1]') First semester
-          input.text-box(type='text', name='classes['+period+'][value][s1]', autocomplete='off')
-          br
-          label(for='classes['+period+'][value][s2]') Second semester (leave blank if same as above)
-          input.text-box(type='text', name='classes['+period+'][value][s2]', autocomplete='off')
+        button.toggle(onclick="$(this).toggleClass('isToggled'); $('#p0 .checkbox').attr('checked', $(this).hasClass('isToggled')); $('.isHL').css('display', $(this).hasClass('isToggled') ? 'initial' : 'none'); return false")
+          div
+        //- button(onclick="$(this).addClass('isOn'); $('#isNotSenior--btn').removeClass('isOn'); $('#p0 .checkbox').attr('checked', true); $('.isHL').css('display', 'initial'); $('#p8 .text-box').prop({'readonly': 'true', 'value': 'DP Flex'}); $('#p8 .isHL').css('display', 'none'); return false" style="width: 10vw; margin: 5px 5px 10px 5px;" id="isSenior--btn") Yes
+        //- button(onclick="$(this).addClass('isOn'); $('#isSenior--btn').removeClass('isOn'); $('#p0 .checkbox').attr('checked', false); $('.isHL').css('display', 'none'); $('#p8 .text-box').attr({'readonly': 'false', 'value': ''}); return false" style="width: 10vw; margin: 5px 5px 10px 5px;" id="isNotSenior--btn").isOn No
         br
         
-        if period !== "p8"
-          input.checkbox(type='checkbox' name="classes["+period+'][hl]' value="true")
-          label.isHL(style="display: none") HL
-          br(class="isHL" style="display:none")
-          button.isHL.toggle(onclick="$(this).toggleClass('isToggled'); $('#"+period+" .checkbox').attr('checked', $(this).hasClass('isToggled')); return false" style="display: none")
-            div
-          br(class="isHL" style="display:none")
-            
-          br(class="isHL" style="display:none")
-            
-          button.button(onclick="scrollDiv('#p"+index+"','#p"+(index+1)+"','back'); return false", style='margin:5px;') Back
-          button.button(onclick="scrollDiv('#"+period+"','#"+period[0]+(index+2)+"','next'); return false", style='margin:5px;') Next
-        else
-          button.button(onclick="$('#p"+index+"').css('left', '50%'); $('#p"+(index+1)+"').css('left', '300%'); $('.progress').width('"+((index+1)*100/9+1)+"vw'); return false", style='margin:5px;') Back
-          input(type="submit" class="button" value="Sumbit" style='margin:5px;')
+        button.button(onclick="scrollDiv('#p0','#p1','next'); return false", style='margin:5px;') Next
+        
+      each period, index in ["p1","p2","p3","p4","p5","p6","p7","p8"]
+        div(id=period style="position: fixed; left: 200%").center
+          h2 What do you have #{["first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth"][index]} period?
+          br
+          div(style="text-align: left")
+            label(for='classes['+period+'][value][s1]') First semester
+            input.text-box(type='text', name='classes['+period+'][value][s1]', autocomplete='off')
+            br
+            label(for='classes['+period+'][value][s2]') Second semester (leave blank if same as above)
+            input.text-box(type='text', name='classes['+period+'][value][s2]', autocomplete='off')
+          br
+          
+          if period !== "p8"
+            input.checkbox(type='checkbox' name="classes["+period+'][hl]' value="true")
+            label.isHL(style="display: none") HL
+            br(class="isHL" style="display:none")
+            button.isHL.toggle(onclick="$(this).toggleClass('isToggled'); $('#"+period+" .checkbox').attr('checked', $(this).hasClass('isToggled')); return false" style="display: none")
+              div
+            br(class="isHL" style="display:none")
+              
+            br(class="isHL" style="display:none")
+              
+            button.button(onclick="scrollDiv('#p"+index+"','#p"+(index+1)+"','back'); return false", style='margin:5px;') Back
+            button.button(onclick="scrollDiv('#"+period+"','#"+period[0]+(index+2)+"','next'); return false", style='margin:5px;') Next
+          else
+            button.button(onclick="$('#p"+index+"').css('left', '50%'); $('#p"+(index+1)+"').css('left', '300%'); $('.progress').width('"+((index+1)*100/9+1)+"vw'); return false", style='margin:5px;') Back
+            input(type="submit" class="button" value="Sumbit" style='margin:5px;')
