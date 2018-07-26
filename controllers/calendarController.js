@@ -89,7 +89,6 @@ function setupCalendar(classes) {
     date = moment(date.toISOString()); // Convert the date into a momentJS date
     date = date.format('YYYY-MM-DD'); // Extract the ISO YYYY-MM-DD for later
     isS2 = new Date(date).getTime() > new Date(semesterEnd).getTime(); // Check if the "current" date is after the end of s1
-    console.log(isS2); // XXX: Please get rid of this log and all other logs
 
     if (summary.split('-')[1] === 'Day') { // If today is... a day
       // Create an event called...
@@ -132,6 +131,15 @@ exports.generateCalendar = async function(req, res) {
       summary: calendar.event.name[i]
     })
   }
+
+  fs.readdir(path, function(err, items) {
+    console.log(items);
+
+    for (var i=0; i<items.length; i++) {
+        console.log(items[i]);
+    }
+  });
+
   fs.writeFileSync(`./public/uploads/calendars`, cal.toString(), function(err) {
     if (err) throw err
     console.log("Done");
