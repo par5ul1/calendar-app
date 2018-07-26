@@ -7,7 +7,8 @@ const User = new mongoose.Schema({
     type: Boolean,
     default: false
   },
-  classes: Object
+  classes: Object,
+  calendar: String
 })
 
 module.exports = mongoose.model('User', User);

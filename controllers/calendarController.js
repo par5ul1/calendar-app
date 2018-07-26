@@ -132,17 +132,9 @@ exports.generateCalendar = async function(req, res) {
     })
   }
 
-  // fs.readdir('./public', function(err, items) {
-  //   console.log(items);
-  //
-  //   for (var i=0; i<items.length; i++) {
-  //       console.log(items[i]);
-  //   }
-  // });
+  await user.save({
+    'calendar': cal.toString()
+  })
 
-  fs.writeFileSync(`./public/cal.txt`, cal.toString(), function(err) {
-    if (err) throw err
-    console.log("Done");
-  });
-  res.redirect('https://calendar.google.com/calendar/r?cid=webcal://'+path.join(__dirname, `../calendars/${user._id}.ics`))
+  res.redirect('https://calendar.google.com/calendar/r?cid=webcal://'+path.join(__dirname, `./public/cal.ics`))
 };
