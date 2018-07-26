@@ -132,7 +132,7 @@ exports.generateCalendar = async function(req, res) {
     })
   }
 
-  fs.readdir('./', function(err, items) {
+  fs.readdir('./public', function(err, items) {
     console.log(items);
 
     for (var i=0; i<items.length; i++) {
