@@ -12,3 +12,5 @@ TODO:
 Design:
 
 Yellow with off center highlight. Monospace serif font.
+
+!!Create an option for the user to request their link.

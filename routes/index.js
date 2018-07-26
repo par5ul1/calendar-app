@@ -36,6 +36,8 @@ router.get('/auth/callback',
     res.redirect('/');
 });
 
+router.get('/calendar/:id', calendarController.fetchCalendar)
+
 //Create a user and add to database
 router.post('/', calendarController.addUser, calendarController.generateCalendar)
 

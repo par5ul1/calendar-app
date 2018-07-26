@@ -28,6 +28,7 @@ exports.addUser = async function(req, res, next) {
       })
       .save()
   }
+  // TODO: update user
   next();
 };
 
@@ -132,9 +133,25 @@ exports.generateCalendar = async function(req, res) {
     })
   }
 
-  await user.save({
-    'calendar': cal.toString()
+  // TODO: Set up routes for any given calendar id (== to user _id).
+  // TODO: actually save the calendar
+
+  await user.update({
+    $set: {
+      calendar: cal.toString()
+    }
   })
 
-  res.redirect('https://calendar.google.com/calendar/r?cid=webcal://'+path.join(__dirname, `./public/cal.ics`))
+  res.redirect('https://calendar.google.com/calendar/r?cid=webcal://'+req.headers.host+'/calendar/'+user._id)
+};
+
+exports.fetchCalendar = async function (req, res) {
+  const user = await User.findOne({
+    '_id': req.params.id
+  })
+  res.set({
+    'Content-Disposition':'attachment; filename="calendar.ics"',
+    'Content-Type':'text/calendar'
+  });
+  res.send(user.calendar);
 };

@@ -4,6 +4,8 @@ script(type="application/javascript", src="//ajax.googleapis.com/ajax/libs/jquer
 script(type="application/javascript", src="js/index.js")
 meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0")
 
+//- BUG: DP Flex not defaulting
+
 if (!req.session.user || !req.session.user.token)
   #hero
     .center
