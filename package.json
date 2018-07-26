@@ -1,5 +1,5 @@
 {
-  "name": "calendar-app",
+  "name": "asm-schedule",
   "version": "0.0.1",
   "description": "An app that takes user inputed classes and creates a calendar with their schedule.",
   "main": "app.js",

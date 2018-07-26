@@ -27,6 +27,7 @@ mongoose.connect("mongodb://r00t:alp1ne@ds111299.mlab.com:11299/schedule-to-cal"
   useNewUrlParser: true
 });
 
-app.listen(8080, function () {
+var port_number = server.listen(process.env.PORT || 3000);
+app.listen(port_numbers, function () {
   console.log('Website is up and running');
 })
