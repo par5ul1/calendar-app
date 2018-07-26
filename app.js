@@ -28,6 +28,6 @@ mongoose.connect("mongodb://r00t:alp1ne@ds111299.mlab.com:11299/schedule-to-cal"
 });
 
 var port_number = process.env.PORT || 3000;
-app.listen(port_numbers, function () {
+app.listen(port_number, function () {
   console.log('Website is up and running');
 });
