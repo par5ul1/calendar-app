@@ -36,10 +36,6 @@ router.get('/auth/callback',
     res.redirect('/');
 });
 
-router.get('/gencal', function (req, res) {
-  res.send(calendarController.gencal());
-})
-
 //Create a user and add to database
 router.post('/', calendarController.addUser, calendarController.generateCalendar)
 
