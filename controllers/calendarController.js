@@ -133,9 +133,6 @@ exports.generateCalendar = async function(req, res) {
     })
   }
 
-  // TODO: Set up routes for any given calendar id (== to user _id).
-  // TODO: actually save the calendar
-
   await user.update({
     $set: {
       calendar: cal.toString()
