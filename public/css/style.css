@@ -149,3 +149,7 @@ button, input[type="submit"] {
 .hidden {
   display: none;
 }
+
+.marker--highlight {
+  background-image: linear-gradient(to top,#ffda00 54%,transparent 54%,transparent 100%);
+}

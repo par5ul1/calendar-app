@@ -1,0 +1,4 @@
+#!/bin/bash
+git add .
+git commit -am "Added all files"
+git push heroku master

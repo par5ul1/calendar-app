@@ -26,4 +26,8 @@ $(document).ready(function () {
       scrollDiv('#'+pages[currentPage], '#'+pages[currentPage+1], 'next');
     }
   });
+
+  // Add marker highlight to text
+  $('h1, h2, h3, h4, h5, h6, p').addClass('marker--highlight');
+
 })
