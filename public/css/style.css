@@ -152,4 +152,8 @@ button, input[type="submit"] {
 
 .marker--highlight {
   background-image: linear-gradient(to top,#ffda00 54%,transparent 54%,transparent 100%);
+  display: inline;
+  padding-left: 3px;
+  padding-right: 3px;
+  padding-bottom: 0;
 }
