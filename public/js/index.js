@@ -1,5 +1,5 @@
 var currentPage = 0;
-const pages = ["welcome","p0","p1","p2","p3","p4","p5","p6","p7","p8"]
+const pages = ["welcome","p0","p1","p2","p3","p4","p5","p6","p7","p8"];
 
 function scrollDiv(a, b, direction) {
   if (direction == 'next') {
@@ -28,6 +28,6 @@ $(document).ready(function () {
   });
 
   // Add marker highlight to text
-  $('h1, h2, h3, h4, h5, h6, p').wrapInner('<span="marker--highlight"></span>');
+  $('h1, h2, h3, h4, h5, h6, p').barjste('highlight')
 
 })

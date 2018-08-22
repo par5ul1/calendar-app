@@ -150,8 +150,8 @@ button, input[type="submit"] {
   display: none;
 }
 
-.marker--highlight {
-  background-image: linear-gradient(to top,#ffda00 54%,transparent 54%,transparent 100%);
+.highlightJS--highlight {
+  background-image: linear-gradient(to top, rgba(255,218,0, 0.6) 60%,transparent 60%,transparent 100%);
   padding-left: 3px;
   padding-right: 3px;
 }
