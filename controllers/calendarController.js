@@ -41,7 +41,7 @@ exports.addUser = async function(req, res, next) {
 
 async function setupCalendar(classes) {
   // TODO: Add a service to grab updated calendar every time
-  const semesterEnd = '2018-01-25'; // The last day of semester 1 // TEMP: Change yr to 2019
+  const semesterEnd = '2019-01-25'; // The last day of semester 1 // TEMP: Change yr to 2019
   const periods = {
     "A": [1, 2, 3, 4, 5],
     "B": [6, 7, 8, 1, 2],
