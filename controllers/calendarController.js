@@ -133,6 +133,7 @@ exports.generateCalendar = async function(req, res, user) {
     const user = User.findOne({
       email: req.session.user.email
     });
+    console.log(user);
   }
 
   const calendar = await setupCalendar(user.classes);
