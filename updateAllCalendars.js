@@ -17,4 +17,4 @@ User.find({}).then(users => {
 
 setTimeout(() => {
   mongoose.connection.close()
-}, 60000)
+}, 120000)
