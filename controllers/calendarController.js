@@ -9,7 +9,6 @@ const download = require('download-to-file');
 const generateCal = require('ical-generator');
 const moment = require('moment-timezone');
 
-
 // function to create a new user
 
 exports.addUser = async function(req, res, next) {
@@ -74,8 +73,10 @@ function setupCalendar(classes) {
   } // An object the start and end of each period throughout the day
 
   // Create a JSON of events in the school's official calendar
-  const JSONCal = ical.parseFile('./calendar.ics');
-  const calendar = {
+
+  const JSONCal = ical.parseICS(originalCalendar.calendar);
+
+  let calendar = {
     event: {
       name: [],
       startDate: [],
@@ -95,31 +96,33 @@ function setupCalendar(classes) {
       // Create an event called...
       calendar.event.name.push(summary); // e.g. A-Day
       // ...starting at...
-      calendar.event.startDate.push(moment.tz(date+"T07:30", 'Europe/Rome').utc()); // "Today", at 07:30
+      calendar.event.startDate.push(moment.tz(date + "T07:30", 'Europe/Rome').utc()); // "Today", at 07:30
       // ...and ending at
-      calendar.event.endDate.push(moment.tz(date+"T08:30", 'Europe/Rome').utc()); // "Today", at 08:30
+      calendar.event.endDate.push(moment.tz(date + "T08:30", 'Europe/Rome').utc()); // "Today", at 08:30
       for (var i = 0; i < Object.keys(timetable).length; i++) { // For all the keys in time table. i.e. 5 times
-        const currentClass = classes['p'+periods[summary.split('-')[0]][i]];
+        const currentClass = classes['p' + periods[summary.split('-')[0]][i]];
         // TODO: DP Flex handling
         // TODO: Empty class handling
         // Create an event called...
         calendar.event.name.push(currentClass.value[isS2 ? 's2' : 's1']); // e.g. classes['p'+periods['A'][0]] == Period 1
         // ...starting at...
-        calendar.event.startDate.push(moment.tz(date+timetable['P'+(i+1)].start, 'Europe/Rome').utc()); // e.g. "Today", at 13:25
+        calendar.event.startDate.push(moment.tz(date + timetable['P' + (i + 1)].start, 'Europe/Rome').utc()); // e.g. "Today", at 13:25
         // ...and ending at
-        calendar.event.endDate.push(moment.tz(date+timetable['P'+(i+1)][currentClass.hl ? 'end_hl' : 'end'], 'Europe/Rome').utc()); // e.g. "Today", at 14:30
+        calendar.event.endDate.push(moment.tz(date + timetable['P' + (i + 1)][currentClass.hl ? 'end_hl' : 'end'], 'Europe/Rome').utc()); // e.g. "Today", at 14:30
       }
     }
   }
   return calendar; // Return the filled up calendar
 }
 
-exports.generateCalendar = async function(req, res) {
+exports.generateCalendar = async function(req, res, user) {
   // BUG: new user classes not created
-  const user = await User.findOne({
-    email: req.session.user.email
-  });
-  const calendar = setupCalendar(user.classes);
+  if (!user) {
+    const user = User.findOne({
+      email: req.session.user.email
+    });
+  }
+  const calendar = await setupCalendar(user.classes);
   var cal = generateCal({
     name: 'Schedule',
     timezone: 'Europe/Rome'
@@ -139,16 +142,16 @@ exports.generateCalendar = async function(req, res) {
     }
   })
 
-  res.redirect('https://calendar.google.com/calendar/r?cid=webcal://'+req.headers.host+'/calendar/'+user._id)
+  res ? res.redirect('https://calendar.google.com/calendar/r?cid=webcal://' + req.headers.host + '/calendar/' + user._id) : null;
 };
 
-exports.fetchCalendar = async function (req, res) {
+exports.fetchCalendar = async function(req, res) {
   const user = await User.findOne({
     '_id': req.params.id
   })
   res.set({
-    'Content-Disposition':'attachment; filename="calendar.ics"',
-    'Content-Type':'text/calendar'
+    'Content-Disposition': 'attachment; filename="calendar.ics"',
+    'Content-Type': 'text/calendar'
   });
   res.send(user.calendar);
 };

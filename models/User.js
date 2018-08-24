@@ -8,6 +8,7 @@ const User = new mongoose.Schema({
     default: false
   },
   classes: Object,
+  original_calendar: String,
   calendar: String
 })
 
