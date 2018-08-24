@@ -13,7 +13,9 @@ X.Get live calendar data and store in MongoDB
 9.Create the congrats page
 X.Test edit user option
 11.Fix all the damn tmps and todos
-12.Create the button links and name
+X.Create the button links and name
+13.Add a title and favicon to your shit
+
 
 Design:
 
