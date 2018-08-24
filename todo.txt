@@ -2,12 +2,13 @@
 
 TODO:
 
-1.Create a Passport.js hook to Google.
-2.Get user OAuth and stuff.
-3.Save to cookies as session + MongoDB.
-4.Create a live calendar for user.
-5.Add live calendar to their calendar.
-6.Deploy to Netlify or Now.
+X.Create a Passport.js hook to Google.
+X.Get user OAuth and stuff.
+X.Save to cookies as session + MongoDB.
+X.Create a live calendar for user.
+X.Add live calendar to their calendar.
+X.Deploy to Netlify or Now.
+7.Get live calendar data and store in MongoDB
 
 Design:
 

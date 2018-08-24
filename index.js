@@ -1,28 +1,3 @@
-// const express = require('express');
-// const router = express.Router();
-// const passport = require('passport');
-// const google = require('passport-google-oauth').OAuth2Strategy;
-//
-// router.get('/', function (req, res) {
-//   res.render('homepage', {
-//     // user: {
-//     //   token: 'on74dhwEdhq83023',
-//     //   _id: 'abc123'
-//     // }
-//   })
-// })
-//
-// router.get('/auth/google',
-//   passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/calendar'] }),
-//   function (req, res) {
-//     res.send('word')
-//   });
-//
-// router.post('/', function (req, res) {
-//   // Do stuff with data. Send to MongoDB and add to user calendar
-// })
-//
-// module.exports = router;
 
 const util = require('util');
 const express = require('express');
