@@ -2,12 +2,20 @@
 
 const mongoose = require('mongoose');
 const User = require('../models/User');
+// const Calendar = require('../models/Calendar');
 const fs = require('fs');
 const path = require('path');
 const ical = require('ical');
 const download = require('download-to-file');
 const generateCal = require('ical-generator');
 const moment = require('moment-timezone');
+const fetch = require('node-fetch');
+
+
+exports.getUpdatedCalendar = async function() {
+  let res = await fetch("https://www.asmilan.org/data/calendar/icalcache/feed_4961866F0A1F4803879866A56CA8EC4F_gmt.ics");
+  return await res.text();
+};
 
 // function to create a new user
 
@@ -31,7 +39,7 @@ exports.addUser = async function(req, res, next) {
   next();
 };
 
-function setupCalendar(classes) {
+async function setupCalendar(classes) {
   // TODO: Add a service to grab updated calendar every time
   const semesterEnd = '2018-01-25'; // The last day of semester 1 // TEMP: Change yr to 2019
   const periods = {
@@ -74,7 +82,11 @@ function setupCalendar(classes) {
 
   // Create a JSON of events in the school's official calendar
 
-  const JSONCal = ical.parseICS(originalCalendar.calendar);
+  let JSONCal = {};
+
+  await exports.getUpdatedCalendar().then(cal => {
+    JSONCal=ical.parseICS(cal);
+  })
 
   let calendar = {
     event: {
@@ -122,8 +134,9 @@ exports.generateCalendar = async function(req, res, user) {
       email: req.session.user.email
     });
   }
+
   const calendar = await setupCalendar(user.classes);
-  var cal = generateCal({
+  let cal = generateCal({
     name: 'Schedule',
     timezone: 'Europe/Rome'
   });
