@@ -129,6 +129,7 @@ async function setupCalendar(classes) {
 
 exports.generateCalendar = async function(req, res, user) {
   // BUG: new user classes not created
+  console.log;
   if (!user) {
     const user = User.findOne({
       email: req.session.user.email
