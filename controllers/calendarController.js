@@ -34,14 +34,20 @@ exports.addUser = async function(req, res, next) {
         classes: body.classes
       })
       .save()
+  } else {
+    user = await user.update({
+      $set: {
+        senior: body.senior,
+        classes: body.classes
+      }
+    })
   }
   // TODO: update user
   next();
 };
 
 async function setupCalendar(classes) {
-  // TODO: Add a service to grab updated calendar every time
-  const semesterEnd = '2019-01-25'; // The last day of semester 1 // TEMP: Change yr to 2019
+  const semesterEnd = '2019-01-25'; // The last day of semester 1
   const periods = {
     "A": [1, 2, 3, 4, 5],
     "B": [6, 7, 8, 1, 2],
@@ -142,6 +148,7 @@ exports.generateCalendar = async function(req, res, user) {
   });
   for (var i = 0; i < calendar.event.name.length; i++) {
     // TODO: Alerts
+    // TODO: Change creator name 'n' stuff
     cal.createEvent({
       start: calendar.event.startDate[i].toDate(),
       end: calendar.event.endDate[i].toDate(),
@@ -149,13 +156,13 @@ exports.generateCalendar = async function(req, res, user) {
     })
   }
 
-  await user.update({
+  user.update({
     $set: {
       calendar: cal.toString()
     }
   })
 
-  res ? res.redirect('https://calendar.google.com/calendar/r?cid=webcal://' + req.headers.host + '/calendar/' + user._id) : null;
+  res ? res.render('congrats', {req, user}) : null;
 };
 
 exports.fetchCalendar = async function(req, res) {

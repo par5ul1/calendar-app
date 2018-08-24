@@ -8,7 +8,12 @@ X.Save to cookies as session + MongoDB.
 X.Create a live calendar for user.
 X.Add live calendar to their calendar.
 X.Deploy to Netlify or Now.
-7.Get live calendar data and store in MongoDB
+X.Get live calendar data and store in MongoDB
+8.Store user session in a cookie and update all references to session
+9.Create the congrats page
+X.Test edit user option
+11.Fix all the damn tmps and todos
+12.Create the button links and name
 
 Design:
 

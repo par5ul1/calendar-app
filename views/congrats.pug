@@ -1,0 +1,68 @@
+style(type='text/css').
+  @import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
+  body {
+    overflow: hidden;
+    background-color: #ffda00;
+    background-image: url('/assets/memphis.svg');
+    background-size: cover;
+  }
+  div {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: #f3f3f3;
+    width: 70vw;
+    height: 70vh;
+    border: 2px solid black;
+    border-radius: 15px;
+    text-align: center;
+    font-family: 'Roboto Mono';
+    box-shadow: -5px 5px 0 rgba(0,0,0,0.4);
+  }
+  div h1 h2 h3 h4 h5 h6 label {
+    margin: 100px;
+  }
+  h1 {
+    font-size: 3em;
+  }
+  button {
+    font-family: inherit;
+    font-size: 1em;
+    width: 25vw;
+    height: 50px;
+    background: none;
+    border: 2px solid black;
+    border-radius: 10px;
+  }
+  a {
+    text-decoration: none;
+    color: inherit;
+    }
+
+div
+  h1 Congrats, #{user.name.split(' ')[0]}!
+  h4
+    strong Your schedule has been successfully turned into a calendar. Please select below how you'd wish to receive it.
+  br
+  label If you want to get it online:
+  br
+  br
+  button(style="background: #2196F3; color: #f3f3f3")
+    a(target="_blank" href='https://calendar.google.com/calendar/r?cid=webcal://' + req.headers.host + '/calendar/' + user._id) Add to Google Calendar
+  br
+  br
+  label If you want to get it locally (i.e. on a laptop or smartphone):
+  br
+  br
+  button(style="background: #EF5350; color: #f3f3f3")
+    a(target="_blank" href='webcal://' + req.headers.host + '/calendar/' + user._id) Add to iCal
+  br
+  br
+  label If you wish to get the raw file (not recommended):
+  br
+  br
+  button(style="background: #4CAF50; color: #f3f3f3")
+    a(target="_blank" href='https://' + req.headers.host + '/calendar/download/' + user._id) Download
+  br
+  br
