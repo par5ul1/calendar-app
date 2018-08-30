@@ -9,15 +9,15 @@ X.Create a live calendar for user.
 X.Add live calendar to their calendar.
 X.Deploy to Netlify or Now.
 X.Get live calendar data and store in MongoDB
-8.Store user session in a cookie and update all references to session
-9.Create the congrats page
+X.Store user session in a cookie and update all references to session | Can't be done, sorry.
+X.Create the congrats page
 X.Test edit user option
 11.Fix all the damn tmps and todos
 X.Create the button links and name
 12/5. Create the pop-under in order to show instructions
-13.Add a title and favicon to your shit
+X.Add a title and favicon to your shit
 14.Make sure teachers can use too
-15.Add a loader when calendar is building
+X.Add a loader when calendar is building
 16.GDPR page
 
 Design:
