@@ -14,8 +14,11 @@ X.Get live calendar data and store in MongoDB
 X.Test edit user option
 11.Fix all the damn tmps and todos
 X.Create the button links and name
+12/5. Create the pop-under in order to show instructions
 13.Add a title and favicon to your shit
-
+14.Make sure teachers can use too
+15.Add a loader when calendar is building
+16.GDPR page
 
 Design:
 

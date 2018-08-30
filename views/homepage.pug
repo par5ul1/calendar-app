@@ -1,5 +1,6 @@
 title Calendar Generator | Parsuli
 link(rel="stylesheet", type="text/css", href="css/style.css")
+link(rel="icon", href="assets/favicon.png")
 script(type="application/javascript", src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js")
 script(type="application/javascript", src="//cdn.jsdelivr.net/gh/par5ul1/barjste@1.0.0/src/barjste.jquery.min.js")
 script(type="application/javascript", src="js/index.js")
@@ -38,8 +39,6 @@ else
         br
         button.toggle(onclick="$(this).toggleClass('isToggled'); $('#p0 .checkbox').attr('checked', $(this).hasClass('isToggled')); $('.isHL').css('display', $(this).hasClass('isToggled') ? 'initial' : 'none'); return false")
           div
-        //- button(onclick="$(this).addClass('isOn'); $('#isNotSenior--btn').removeClass('isOn'); $('#p0 .checkbox').attr('checked', true); $('.isHL').css('display', 'initial'); $('#p8 .text-box').prop({'readonly': 'true', 'value': 'DP Flex'}); $('#p8 .isHL').css('display', 'none'); return false" style="width: 10vw; margin: 5px 5px 10px 5px;" id="isSenior--btn") Yes
-        //- button(onclick="$(this).addClass('isOn'); $('#isSenior--btn').removeClass('isOn'); $('#p0 .checkbox').attr('checked', false); $('.isHL').css('display', 'none'); $('#p8 .text-box').attr({'readonly': 'false', 'value': ''}); return false" style="width: 10vw; margin: 5px 5px 10px 5px;" id="isNotSenior--btn").isOn No
         br
         
         button.button(onclick="scrollDiv('#p0','#p1','next'); return false", style='margin:5px;') Next
@@ -70,4 +69,11 @@ else
             button.button(onclick="scrollDiv('#"+period+"','#"+period[0]+(index+2)+"','next'); return false", style='margin:5px;') Next
           else
             button.button(onclick="$('#p"+index+"').css('left', '50%'); $('#p"+(index+1)+"').css('left', '300%'); $('.progress').width('"+((index+1)*100/9+1)+"vw'); return false", style='margin:5px;') Back
-            input(type="submit" class="button" value="Sumbit" style='margin:5px;')
+            input(type="submit" class="button" value="Sumbit" style='margin:5px;' onclick="$('.overlay').addClass('visible')")
+section.overlay
+  div.center
+    h1.pacman YOUR calendar IS being BUILT
+    br
+    h1.pacman please WAIT
+    br
+    img(src="assets/pacman.svg", alt="")

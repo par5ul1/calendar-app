@@ -22,11 +22,6 @@ router.get('/', function (req, res) {
   res.render('homepage', {req})
 })
 
-//Load finished screen post-calendar creation
-router.get('/congrats', function (req, res) {
-  res.render('congrats', {req})
-})
-
 //Authenticate user via Passport
 router.get('/auth', passport.authenticate('google', { session: false }));
 

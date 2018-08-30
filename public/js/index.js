@@ -28,6 +28,6 @@ $(document).ready(function () {
   });
 
   // Add marker highlight to text
-  $('h1, h2, h3, h4, h5, h6, p').barjste('highlight')
+  $('h1:not(.pacman), h2, h3, h4, h5, h6, p').barjste('highlight')
 
 })
