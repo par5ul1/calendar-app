@@ -26,6 +26,10 @@ exports.addUser = async function(req, res, next) {
   });
   // Check if user exist, if they do, move on. Otherwise...
   if (user == null || user.length === 0) {
+    // Do some cleanup with empty classes
+    for (var i = 1; i <= 8; i++) {
+      body.classes['p'+i].value.s2 = body.classes['p'+i].value.s2 == '' ? body.classes['p'+i].value.s1 : body.classes['p'+i].value.s2;
+    }
     // Create the user and assign it to 'user'
     user = await new User({
         name: req.session.user.name,
@@ -35,6 +39,11 @@ exports.addUser = async function(req, res, next) {
       })
       .save()
   } else {
+    // Do some cleanup with empty classes
+    for (var i = 1; i <= 8; i++) {
+      body.classes['p'+i].value.s2 = body.classes['p'+i].value.s2 == '' ? body.classes['p'+i].value.s1 : body.classes['p'+i].value.s2;
+    }
+    // Update the user info
     user = await user.update({
       $set: {
         senior: body.senior,
@@ -45,7 +54,7 @@ exports.addUser = async function(req, res, next) {
   next();
 };
 
-async function setupCalendar(classes) {
+async function setupCalendar(user) {
   const semesterEnd = '2019-01-25'; // The last day of semester 1
   const periods = {
     "A": [1, 2, 3, 4, 5],
@@ -102,6 +111,7 @@ async function setupCalendar(classes) {
   }; // An object where only the events that end with '-Day' live in
 
   // One big loop where everything is done in. Probably not the best way but this will make due.
+  let currentDPFlex = null;
   for (var event in JSONCal) { // For all events in the JSON (this is necessary as I don't know the names of the parent elements)
     const summary = JSONCal[event].summary; // The name of the event. ¯\_(ツ)_/¯
     var date = JSONCal[event].start; // The day, 'the day' starts ¯\_(ツ)_/¯
@@ -109,7 +119,7 @@ async function setupCalendar(classes) {
     date = date.format('YYYY-MM-DD'); // Extract the ISO YYYY-MM-DD for later
     isS2 = new Date(date).getTime() > new Date(semesterEnd).getTime(); // Check if the "current" date is after the end of s1
 
-    if (summary.split('-')[1] === 'Day') { // If today is... a day
+    if (summary.split('-')[1] === 'Day') { // If today is... a "day"
       // Create an event called...
       calendar.event.name.push(summary); // e.g. A-Day
       // ...starting at...
@@ -117,11 +127,27 @@ async function setupCalendar(classes) {
       // ...and ending at
       calendar.event.endDate.push(moment.tz(date + "T08:30", 'Europe/Rome').utc()); // "Today", at 08:30
       for (var i = 0; i < Object.keys(timetable).length; i++) { // For all the keys in time table. i.e. 5 times
-        const currentClass = classes['p' + periods[summary.split('-')[0]][i]];
+        let currentClass = user.classes['p' + periods[summary.split('-')[0]][i]]; // e.g. classes['p'+periods['A'][0]] == Period 1
+
+        if (user.senior && periods[summary.split('-')[0]][i] == 8) {
+          currentDPFlex = currentDPFlex%8 + 1;
+          console.log(currentDPFlex);
+          console.log("--");
+          if (user.classes['p' + currentDPFlex].hl) {
+            console.log(user.classes['p' + currentDPFlex]);
+            currentClass = user.classes['p' + currentDPFlex];
+          } else {
+            currentClass.value = {
+              s1: 'Independent Study',
+              s2: 'Independent Study'
+            }
+          }
+        }
+
         // TODO: DP Flex handling
         // TODO: Empty class handling
         // Create an event called...
-        calendar.event.name.push(currentClass.value[isS2 ? 's2' : 's1']); // e.g. classes['p'+periods['A'][0]] == Period 1
+        calendar.event.name.push(currentClass.value[!isS2 ? 's2' : 's1']);
         // ...starting at...
         calendar.event.startDate.push(moment.tz(date + timetable['P' + (i + 1)].start, 'Europe/Rome').utc()); // e.g. "Today", at 13:25
         // ...and ending at
@@ -140,24 +166,22 @@ exports.generateCalendar = async function(req, res, user) {
     });
   }
 
-  const calendar = await setupCalendar(user.classes);
+  const calendar = await setupCalendar(user);
   let cal = generateCal({
-    domain: req.headers.host,
-    company: 'Parsuli',
-    product: 'Schedule',
     name: 'Schedule',
-    url: req.headers.host + '/calendar/' + user._id,
     timezone: 'Europe/Rome',
-    ttl: 24*60*60
-  });
+  })
+  .ttl(24*60*60)
+  .url(req.headers.host + '/calendar/' + user._id)
+  .prodId('//Parsuli//Schedule//EN')
+  .domain(req.headers.host);
   for (var i = 0; i < calendar.event.name.length; i++) {
-    // TODO: Alerts
-    // TODO: Change creator name 'n' stuff
-    cal.createEvent({
+    let event = cal.createEvent({
       start: calendar.event.startDate[i].toDate(),
       end: calendar.event.endDate[i].toDate(),
       summary: calendar.event.name[i]
-    }).alarms([
+    })
+    event.alarms([
       {type: "display", trigger: 600},
       {type: "display", trigger: 300}
     ]);
