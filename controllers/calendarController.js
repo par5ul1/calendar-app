@@ -146,7 +146,7 @@ exports.generateCalendar = async function(req, res, user) {
     company: 'Parsuli',
     product: 'Schedule',
     name: 'Schedule',
-    url: req.headers.host + '/calendar/' + user._id)
+    url: req.headers.host + '/calendar/' + user._id),
     timezone: 'Europe/Rome',
     ttl: 24*60*60
   });
