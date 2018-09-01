@@ -150,13 +150,6 @@ exports.generateCalendar = async function(req, res, user) {
     timezone: 'Europe/Rome',
     ttl: 24*60*60
   });
-  cal.alarms({
-    type: "display",
-    trigger: 600
-  }, {
-    type: "display",
-    trigger: 300
-  })
   for (var i = 0; i < calendar.event.name.length; i++) {
     // TODO: Alerts
     // TODO: Change creator name 'n' stuff
@@ -164,7 +157,10 @@ exports.generateCalendar = async function(req, res, user) {
       start: calendar.event.startDate[i].toDate(),
       end: calendar.event.endDate[i].toDate(),
       summary: calendar.event.name[i]
-    })
+    }).alarms([
+      {type: "display", trigger: 600},
+      {type: "display", trigger: 300}
+    ]);
   }
 
   user.update({
