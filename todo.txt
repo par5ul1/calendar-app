@@ -14,11 +14,12 @@ X.Create the congrats page
 X.Test edit user option
 11.Fix all the damn tmps and todos
 X.Create the button links and name
-12/5. Create the pop-under in order to show instructions
+X. Create the pop-under in order to show instructions | Won't be done, sorry.
 X.Add a title and favicon to your shit
 14.Make sure teachers can use too
 X.Add a loader when calendar is building
 16.GDPR page
+17.Ofc, DP Flex
 
 Design:
 

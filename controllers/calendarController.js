@@ -42,7 +42,6 @@ exports.addUser = async function(req, res, next) {
       }
     })
   }
-  // TODO: update user
   next();
 };
 
@@ -143,9 +142,21 @@ exports.generateCalendar = async function(req, res, user) {
 
   const calendar = await setupCalendar(user.classes);
   let cal = generateCal({
+    domain: req.headers.host,
+    company: 'Parsuli',
+    product: 'Schedule',
     name: 'Schedule',
-    timezone: 'Europe/Rome'
+    url: req.headers.host + '/calendar/' + user._id)
+    timezone: 'Europe/Rome',
+    ttl: 24*60*60
   });
+  cal.alarms({
+    type: "display",
+    trigger: 600
+  }, {
+    type: "display",
+    trigger: 300
+  })
   for (var i = 0; i < calendar.event.name.length; i++) {
     // TODO: Alerts
     // TODO: Change creator name 'n' stuff
