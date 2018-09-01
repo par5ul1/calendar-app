@@ -131,10 +131,7 @@ async function setupCalendar(user) {
 
         if (user.senior && periods[summary.split('-')[0]][i] == 8) {
           currentDPFlex = currentDPFlex%8 + 1;
-          console.log(currentDPFlex);
-          console.log("--");
           if (user.classes['p' + currentDPFlex].hl) {
-            console.log(user.classes['p' + currentDPFlex]);
             currentClass = user.classes['p' + currentDPFlex];
           } else {
             currentClass.value = {
@@ -167,14 +164,14 @@ exports.generateCalendar = async function(req, res, user) {
   }
 
   const calendar = await setupCalendar(user);
-  let cal = generateCal({
+  const cal = generateCal({
     name: 'Schedule',
     timezone: 'Europe/Rome',
   })
   .ttl(24*60*60)
-  .url(req.headers.host + '/calendar/' + user._id)
+  .url('parsuli.net/calendar/' + user._id)
   .prodId('//Parsuli//Schedule//EN')
-  .domain(req.headers.host);
+  .domain('parsuli.net');
   for (var i = 0; i < calendar.event.name.length; i++) {
     let event = cal.createEvent({
       start: calendar.event.startDate[i].toDate(),
@@ -187,7 +184,7 @@ exports.generateCalendar = async function(req, res, user) {
     ]);
   }
 
-  user.update({
+  await user.update({
     $set: {
       calendar: cal.toString()
     }

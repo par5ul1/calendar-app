@@ -10,7 +10,6 @@ mongoose.connect(process.env.DATABASE, {
 
 User.find({}).then(users => {
   users.forEach(async user => {
-    console.log('Aww Shieet');
     await calendarController.generateCalendar(null, null, user)
   })
 })
