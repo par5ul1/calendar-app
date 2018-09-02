@@ -129,6 +129,7 @@ async function setupCalendar(user) {
       for (var i = 0; i < Object.keys(timetable).length; i++) { // For all the keys in time table. i.e. 5 times
         let currentClass = user.classes['p' + periods[summary.split('-')[0]][i]]; // e.g. classes['p'+periods['A'][0]] == Period 1
 
+        // Little code to check if user is a senior and rotate amongst their HL classes for DP Flex.
         if (user.senior && periods[summary.split('-')[0]][i] == 8) {
           currentDPFlex = currentDPFlex%8 + 1;
           if (user.classes['p' + currentDPFlex].hl) {
@@ -140,11 +141,8 @@ async function setupCalendar(user) {
             }
           }
         }
-
-        // TODO: DP Flex handling
-        // TODO: Empty class handling
         // Create an event called...
-        calendar.event.name.push(currentClass.value[!isS2 ? 's2' : 's1']);
+        calendar.event.name.push(currentClass.value[isS2 ? 's2' : 's1']);
         // ...starting at...
         calendar.event.startDate.push(moment.tz(date + timetable['P' + (i + 1)].start, 'Europe/Rome').utc()); // e.g. "Today", at 13:25
         // ...and ending at
