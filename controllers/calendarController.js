@@ -131,7 +131,7 @@ async function setupCalendar(user) {
 
         // Little code to check if user is a senior and rotate amongst their HL classes for DP Flex.
         if (user.senior && periods[summary.split('-')[0]][i] == 8) {
-          currentDPFlex = currentDPFlex%8 + 1;
+          currentDPFlex = currentDPFlex%7 + 1;
           if (user.classes['p' + currentDPFlex].hl) {
             currentClass = user.classes['p' + currentDPFlex];
           } else {
@@ -166,7 +166,7 @@ exports.generateCalendar = async function(req, res, user) {
     name: 'Schedule',
     timezone: 'Europe/Rome',
   })
-  .ttl(24*60*60)
+  .ttl(3600)
   .url('parsuli.net/calendar/' + user._id)
   .prodId('//Parsuli//Schedule//EN')
   .domain('parsuli.net');

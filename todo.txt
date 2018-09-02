@@ -12,14 +12,14 @@ X.Get live calendar data and store in MongoDB
 X.Store user session in a cookie and update all references to session | Can't be done, sorry.
 X.Create the congrats page
 X.Test edit user option
-11.Fix all the damn tmps and todos
+11.Fix all the damn tmps and todos !!Alerts still none functional!!
 X.Create the button links and name
 X. Create the pop-under in order to show instructions | Won't be done, sorry.
 X.Add a title and favicon to your shit
 14.Make sure teachers can use too
 X.Add a loader when calendar is building
 16.GDPR page
-17.Ofc, DP Flex
+X.Of course, DP Flex
 
 Design:
 
