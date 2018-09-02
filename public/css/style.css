@@ -121,6 +121,17 @@ button, input[type="submit"] {
   border-radius: 50px;
 }
 
+#privacy {
+  transition: 0.1s;
+  z-index: 2;
+  background: #ffda00;
+  border-radius: 15px;
+  padding: 5%;
+  box-shadow: 0 0 50px rgba(0,0,0,0.2);
+  visibility: hidden;
+  opacity: 0;
+}
+
 .toggle div {
   position: relative;
   top: 0;

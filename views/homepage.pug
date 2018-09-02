@@ -7,6 +7,13 @@ script(type="application/javascript", src="js/index.js")
 meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0")
 
 if (!req.session.user || !req.session.user.token)
+  #privacy.center
+    span(style="position: absolute; top:3%; right: 3%; cursor: pointer" onclick="$('#privacy').css({opacity: 0, visibility: 'hidden'})") ✕
+    p I am not a lawyer and do not know what Europe wants from me but there is a thing called GDPR and I need to respect it. Basically, I need to make sure you know what information you are giving me and what I will do with it, so here it goes:
+    br
+    p I ask you to log in so that I can grab your e-mail address. Once I have that, I will create an account based on your e-mail and when you tell me what classes you have, I keep them under you profile. Then, I generate a calendar with that information and I save it. That means that I can update your calendar every day, automatically, so if anything ever goes wrong with the program, I can fix it and everyone is happy (e.g. there is a snow day and the days shift). Oh, I also keep your name to make the website more interactive (by saying things like "Hi, Jon"). Anyways, if you don't want to use the app after having read the above, no hard feelings.
+    br
+    p Since you decided to stick around this long, #[a(href="https://www.youtube.com/watch?v=dQw4w9WgXcQ", target="_blank") here] is something to cheer you up.
   #hero
     .center
       h1 Hi there!
@@ -20,6 +27,7 @@ if (!req.session.user || !req.session.user.token)
           span(style="color: #3cba54;") l
           span(style="color: #db3236;") e
         |  as this allows me to keep your calendar up to date. Once you log in, you will be redirected back so you can add your classes.
+    a(onclick="$('#privacy').css({opacity: 1, visibility: 'visible'})" style="position: absolute; bottom: 5%; left: 50%; transform: translate(-50%, 0); cursor: pointer;") Privacy Stuff
 else
   .fullscreen
     span.progress
