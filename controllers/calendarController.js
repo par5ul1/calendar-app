@@ -69,29 +69,19 @@ async function setupCalendar(user) {
   const timetable = {
     "P1": {
       start: "T09:00",
-      end: "T10:05",
-      end_hl: "T10:05"
-    },
+      end: "T10:05",    },
     "P2": {
       start: "T10:10",
-      end: "T11:15",
-      end_hl: "T11:15"
-    },
+      end: "T11:15",    },
     "P3": {
       start: "T11:20",
-      end: "T12:25",
-      end_hl: "T12:35"
-    },
+      end: "T12:25",    },
     "P4": {
       start: "T13:25",
-      end: "T14:30",
-      end_hl: "T14:30"
-    },
+      end: "T14:30",    },
     "P5": {
       start: "T14:35",
-      end: "T15:40",
-      end_hl: "T15:40"
-    }
+      end: "T15:40",    }
   } // An object the start and end of each period throughout the day
 
   // Create a JSON of events in the school's official calendar
@@ -146,7 +136,7 @@ async function setupCalendar(user) {
         // ...starting at...
         calendar.event.startDate.push(moment.tz(date + timetable['P' + (i + 1)].start, 'Europe/Rome').utc()); // e.g. "Today", at 13:25
         // ...and ending at
-        calendar.event.endDate.push(moment.tz(date + timetable['P' + (i + 1)][currentClass.hl ? 'end_hl' : 'end'], 'Europe/Rome').utc()); // e.g. "Today", at 14:30
+        calendar.event.endDate.push(moment.tz(date + timetable['P' + (i + 1)].end, 'Europe/Rome').utc()); // e.g. "Today", at 14:30
       }
     }
   }

@@ -18,7 +18,7 @@ X. Create the pop-under in order to show instructions | Won't be done, sorry.
 X.Add a title and favicon to your shit
 14.Make sure teachers can use too
 X.Add a loader when calendar is building
-16.GDPR page
+X.GDPR page
 X.Of course, DP Flex
 
 Design:
