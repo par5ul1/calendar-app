@@ -126,8 +126,8 @@ async function setupCalendar(user) {
             currentClass = user.classes['p' + currentDPFlex];
           } else {
             currentClass.value = {
-              s1: 'Independent Study',
-              s2: 'Independent Study'
+              s1: 'DP '+ (currentDPFlex),
+              s2: 'DP '+ (currentDPFlex)
             }
           }
         }
