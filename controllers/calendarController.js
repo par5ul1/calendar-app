@@ -123,10 +123,11 @@ async function setupCalendar(user) {
 
         // Little code to check if user is a senior and rotate amongst their HL classes for DP Flex.
         if (user.senior && periods[summary.split('-')[0]][i] == 8) {
-          currentDPFlex = currentDPFlex%7 + 1;
           // HACK: Basically, skip 4 DPs because 2018-19 ASM decided to have ABCD days during mocks...
           if (isS2) {
-            currentDPFlex+=4;
+            currentDPFlex = currentDPFlex%7 + 5;
+          } else {
+            currentDPFlex = currentDPFlex%7 + 1;
           }
           if (user.classes['p' + currentDPFlex].hl) {
             currentClass = user.classes['p' + currentDPFlex];
