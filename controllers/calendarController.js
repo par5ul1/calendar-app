@@ -126,7 +126,7 @@ async function setupCalendar(user) {
           currentDPFlex = currentDPFlex%7 + 1;
           // HACK: Basically, skip 4 DPs because 2018-19 ASM decided to have ABCD days during mocks...
           if (isS2) {
-            currentDPFlex+4;
+            currentDPFlex+=4;
           }
           if (user.classes['p' + currentDPFlex].hl) {
             currentClass = user.classes['p' + currentDPFlex];
