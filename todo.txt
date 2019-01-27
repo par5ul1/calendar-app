@@ -16,7 +16,7 @@ X.Fix all the damn tmps and todos !!Alerts still none functional!! -> Alerts are
 X.Create the button links and name
 X. Create the pop-under in order to show instructions | Won't be done, sorry.
 X.Add a title and favicon to your shit
-14.Make sure teachers can use too
+X.Make sure teachers can use too
 X.Add a loader when calendar is building
 X.GDPR page
 X.Of course, DP Flex
