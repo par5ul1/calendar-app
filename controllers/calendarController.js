@@ -125,7 +125,7 @@ async function setupCalendar(user) {
         if (user.senior && periods[summary.split('-')[0]][i] == 8) {
           // HACK: Basically, skip 4 DPs because 2018-19 ASM decided to have ABCD days during mocks...
           if (isS2) {
-            currentDPFlex = currentDPFlex%7 + 5;
+            currentDPFlex = (currentDPFlex+4)%7 + 1;
           } else {
             currentDPFlex = currentDPFlex%7 + 1;
           }
