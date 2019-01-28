@@ -124,7 +124,8 @@ async function setupCalendar(user) {
         // Little code to check if user is a senior and rotate amongst their HL classes for DP Flex.
         if (user.senior && periods[summary.split('-')[0]][i] == 8) {
           // HACK: Basically, skip 4 DPs because 2018-19 ASM decided to have ABCD days during mocks...
-          if (new Date(date).getTime() == new Date(semesterEnd).getTime()) {
+
+          if (date == "2019-01-28") { // This date needs to be changed for future years. This is the first occurance of DP after mocks.
             currentDPFlex = (currentDPFlex+4)%7 + 1;
           } else {
             currentDPFlex = currentDPFlex%7 + 1;
