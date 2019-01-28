@@ -124,7 +124,7 @@ async function setupCalendar(user) {
         // Little code to check if user is a senior and rotate amongst their HL classes for DP Flex.
         if (user.senior && periods[summary.split('-')[0]][i] == 8) {
           // HACK: Basically, skip 4 DPs because 2018-19 ASM decided to have ABCD days during mocks...
-          if (isS2) {
+          if (new Date(date).getTime() == new Date(semesterEnd).getTime()) {
             currentDPFlex = (currentDPFlex+4)%7 + 1;
           } else {
             currentDPFlex = currentDPFlex%7 + 1;
@@ -151,7 +151,6 @@ async function setupCalendar(user) {
 }
 
 exports.generateCalendar = async function(req, res, user) {
-  // BUG: new user classes not created
   if (user && {}.toString.call(user) === '[object Function]') {
     user = await User.findOne({
       email: req.session.user.email
