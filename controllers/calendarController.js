@@ -2,7 +2,6 @@
 
 const mongoose = require('mongoose');
 const User = require('../models/User');
-// const Calendar = require('../models/Calendar');
 const fs = require('fs');
 const path = require('path');
 const ical = require('ical');
@@ -13,7 +12,8 @@ const fetch = require('node-fetch');
 
 
 exports.getUpdatedCalendar = async function() {
-  let res = await fetch("https://www.asmilan.org/data/calendar/icalcache/feed_4961866F0A1F4803879866A56CA8EC4F_gmt.ics");
+  let res = await fetch("<LINK TO ICS FILE>");
+  // Sample link used for 2018-19 --> https://www.asmilan.org/data/calendar/icalcache/feed_4961866F0A1F4803879866A56CA8EC4F_gmt.ics
   return await res.text();
 };
 
@@ -57,7 +57,7 @@ exports.addUser = async function(req, res, next) {
 var timetable = {};
 
 async function setupCalendar(user) {
-  const semesterEnd = '2019-01-25'; // The last day of semester 1
+  const semesterEnd = '2020-01-23'; // The last day of semester 1 || Change every year
   const periods = {
     "A": [1, 2, 3, 4, 5],
     "B": [6, 7, 8, 1, 2],
@@ -84,7 +84,7 @@ async function setupCalendar(user) {
     "P5": {
       start: "T14:35",
       end: "T15:40",    }
-  } // An object the start and end of each period throughout the day
+  } // An object with the start and end of each period throughout the day
 
   // Create a JSON of events in the school's official calendar
 
@@ -203,136 +203,138 @@ exports.fetchCalendar = async function(req, res) {
   res.send(user.calendar);
 };
 
-function createFieldTripWeekCal(user, cal, timetable) {
-
-  cal.createEvent({
-    start: (moment.tz('2018-10-01' + timetable['P1'].start, 'Europe/Rome').utc()).toDate(),
-    end: (moment.tz('2018-10-01' + timetable['P1'].end, 'Europe/Rome').utc()).toDate(),
-    summary: user.classes['p1'].value.s1
-  });
-  cal.createEvent({
-    start: (moment.tz('2018-10-01' + timetable['P2'].start, 'Europe/Rome').utc()).toDate(),
-    end: (moment.tz('2018-10-01' + timetable['P2'].end, 'Europe/Rome').utc()).toDate(),
-    summary: user.classes['p2'].value.s1
-  });
-  cal.createEvent({
-    start: (moment.tz('2018-10-01' + timetable['P3'].start, 'Europe/Rome').utc()).toDate(),
-    end: (moment.tz('2018-10-01' + timetable['P3'].end, 'Europe/Rome').utc()).toDate(),
-    summary: user.classes['p3'].value.s1
-  });
-  cal.createEvent({
-    start: (moment.tz('2018-10-01' + timetable['P4'].start, 'Europe/Rome').utc()).toDate(),
-    end: (moment.tz('2018-10-01' + timetable['P4'].end, 'Europe/Rome').utc()).toDate(),
-    summary: user.classes['p4'].value.s1
-  });
-  cal.createEvent({
-    start: (moment.tz('2018-10-01' + timetable['P5'].start, 'Europe/Rome').utc()).toDate(),
-    end: (moment.tz('2018-10-01' + timetable['P5'].end, 'Europe/Rome').utc()).toDate(),
-    summary: user.classes['p5'].value.s1
-  });
-
-  cal.createEvent({
-    start: (moment.tz('2018-10-02' + timetable['P1'].start, 'Europe/Rome').utc()).toDate(),
-    end: (moment.tz('2018-10-02' + timetable['P1'].end, 'Europe/Rome').utc()).toDate(),
-    summary: user.classes['p6'].value.s1
-  });
-  cal.createEvent({
-    start: (moment.tz('2018-10-02' + timetable['P2'].start, 'Europe/Rome').utc()).toDate(),
-    end: (moment.tz('2018-10-02' + timetable['P2'].end, 'Europe/Rome').utc()).toDate(),
-    summary: user.classes['p7'].value.s1
-  });
-  cal.createEvent({
-    start: (moment.tz('2018-10-02' + timetable['P3'].start, 'Europe/Rome').utc()).toDate(),
-    end: (moment.tz('2018-10-02' + timetable['P3'].end, 'Europe/Rome').utc()).toDate(),
-    summary: user.classes['p1'].value.s1
-  });
-  cal.createEvent({
-    start: (moment.tz('2018-10-02' + timetable['P4'].start, 'Europe/Rome').utc()).toDate(),
-    end: (moment.tz('2018-10-02' + timetable['P4'].end, 'Europe/Rome').utc()).toDate(),
-    summary: user.classes['p2'].value.s1
-  });
-  cal.createEvent({
-    start: (moment.tz('2018-10-02' + timetable['P5'].start, 'Europe/Rome').utc()).toDate(),
-    end: (moment.tz('2018-10-02' + timetable['P5'].end, 'Europe/Rome').utc()).toDate(),
-    summary: user.classes['p3'].value.s1
-  });
-
-  cal.createEvent({
-    start: (moment.tz('2018-10-03' + timetable['P1'].start, 'Europe/Rome').utc()).toDate(),
-    end: (moment.tz('2018-10-03' + timetable['P1'].end, 'Europe/Rome').utc()).toDate(),
-    summary: user.classes['p4'].value.s1
-  });
-  cal.createEvent({
-    start: (moment.tz('2018-10-03' + timetable['P2'].start, 'Europe/Rome').utc()).toDate(),
-    end: (moment.tz('2018-10-03' + timetable['P2'].end, 'Europe/Rome').utc()).toDate(),
-    summary: user.classes['p5'].value.s1
-  });
-  cal.createEvent({
-    start: (moment.tz('2018-10-03' + timetable['P3'].start, 'Europe/Rome').utc()).toDate(),
-    end: (moment.tz('2018-10-03' + timetable['P3'].end, 'Europe/Rome').utc()).toDate(),
-    summary: user.classes['p6'].value.s1
-  });
-  cal.createEvent({
-    start: (moment.tz('2018-10-03' + timetable['P4'].start, 'Europe/Rome').utc()).toDate(),
-    end: (moment.tz('2018-10-03' + timetable['P4'].end, 'Europe/Rome').utc()).toDate(),
-    summary: user.classes['p7'].value.s1
-  });
-  cal.createEvent({
-    start: (moment.tz('2018-10-03' + timetable['P5'].start, 'Europe/Rome').utc()).toDate(),
-    end: (moment.tz('2018-10-03' + timetable['P5'].end, 'Europe/Rome').utc()).toDate(),
-    summary: user.classes['p1'].value.s1
-  });
-
-  cal.createEvent({
-    start: (moment.tz('2018-10-04' + timetable['P1'].start, 'Europe/Rome').utc()).toDate(),
-    end: (moment.tz('2018-10-04' + timetable['P1'].end, 'Europe/Rome').utc()).toDate(),
-    summary: user.classes['p2'].value.s1
-  });
-  cal.createEvent({
-    start: (moment.tz('2018-10-04' + timetable['P2'].start, 'Europe/Rome').utc()).toDate(),
-    end: (moment.tz('2018-10-04' + timetable['P2'].end, 'Europe/Rome').utc()).toDate(),
-    summary: user.classes['p3'].value.s1
-  });
-  cal.createEvent({
-    start: (moment.tz('2018-10-04' + timetable['P3'].start, 'Europe/Rome').utc()).toDate(),
-    end: (moment.tz('2018-10-04' + timetable['P3'].end, 'Europe/Rome').utc()).toDate(),
-    summary: user.classes['p4'].value.s1
-  });
-  cal.createEvent({
-    start: (moment.tz('2018-10-04' + timetable['P4'].start, 'Europe/Rome').utc()).toDate(),
-    end: (moment.tz('2018-10-04' + timetable['P4'].end, 'Europe/Rome').utc()).toDate(),
-    summary: user.classes['p5'].value.s1
-  });
-  cal.createEvent({
-    start: (moment.tz('2018-10-04' + timetable['P5'].start, 'Europe/Rome').utc()).toDate(),
-    end: (moment.tz('2018-10-04' + timetable['P5'].end, 'Europe/Rome').utc()).toDate(),
-    summary: user.classes['p6'].value.s1
-  });
-
-  cal.createEvent({
-    start: (moment.tz('2018-10-05' + timetable['P1'].start, 'Europe/Rome').utc()).toDate(),
-    end: (moment.tz('2018-10-05' + timetable['P1'].end, 'Europe/Rome').utc()).toDate(),
-    summary: user.classes['p7'].value.s1
-  });
-  cal.createEvent({
-    start: (moment.tz('2018-10-05' + timetable['P2'].start, 'Europe/Rome').utc()).toDate(),
-    end: (moment.tz('2018-10-05' + timetable['P2'].end, 'Europe/Rome').utc()).toDate(),
-    summary: user.classes['p1'].value.s1
-  });
-  cal.createEvent({
-    start: (moment.tz('2018-10-05' + timetable['P3'].start, 'Europe/Rome').utc()).toDate(),
-    end: (moment.tz('2018-10-05' + timetable['P3'].end, 'Europe/Rome').utc()).toDate(),
-    summary: user.classes['p2'].value.s1
-  });
-  cal.createEvent({
-    start: (moment.tz('2018-10-05' + timetable['P4'].start, 'Europe/Rome').utc()).toDate(),
-    end: (moment.tz('2018-10-05' + timetable['P4'].end, 'Europe/Rome').utc()).toDate(),
-    summary: user.classes['p3'].value.s1
-  });
-  cal.createEvent({
-    start: (moment.tz('2018-10-05' + timetable['P5'].start, 'Europe/Rome').utc()).toDate(),
-    end: (moment.tz('2018-10-05' + timetable['P5'].end, 'Europe/Rome').utc()).toDate(),
-    summary: user.classes['p4'].value.s1
-  });
-
-}
+// HACK: This is just a hard coded bit where I fix the calendar for field trip week. Similar thing can be done with other irregural dates.
+// Commented because of hard coding.
+// function createFieldTripWeekCal(user, cal, timetable) {
+//
+//   cal.createEvent({
+//     start: (moment.tz('2018-10-01' + timetable['P1'].start, 'Europe/Rome').utc()).toDate(),
+//     end: (moment.tz('2018-10-01' + timetable['P1'].end, 'Europe/Rome').utc()).toDate(),
+//     summary: user.classes['p1'].value.s1
+//   });
+//   cal.createEvent({
+//     start: (moment.tz('2018-10-01' + timetable['P2'].start, 'Europe/Rome').utc()).toDate(),
+//     end: (moment.tz('2018-10-01' + timetable['P2'].end, 'Europe/Rome').utc()).toDate(),
+//     summary: user.classes['p2'].value.s1
+//   });
+//   cal.createEvent({
+//     start: (moment.tz('2018-10-01' + timetable['P3'].start, 'Europe/Rome').utc()).toDate(),
+//     end: (moment.tz('2018-10-01' + timetable['P3'].end, 'Europe/Rome').utc()).toDate(),
+//     summary: user.classes['p3'].value.s1
+//   });
+//   cal.createEvent({
+//     start: (moment.tz('2018-10-01' + timetable['P4'].start, 'Europe/Rome').utc()).toDate(),
+//     end: (moment.tz('2018-10-01' + timetable['P4'].end, 'Europe/Rome').utc()).toDate(),
+//     summary: user.classes['p4'].value.s1
+//   });
+//   cal.createEvent({
+//     start: (moment.tz('2018-10-01' + timetable['P5'].start, 'Europe/Rome').utc()).toDate(),
+//     end: (moment.tz('2018-10-01' + timetable['P5'].end, 'Europe/Rome').utc()).toDate(),
+//     summary: user.classes['p5'].value.s1
+//   });
+//
+//   cal.createEvent({
+//     start: (moment.tz('2018-10-02' + timetable['P1'].start, 'Europe/Rome').utc()).toDate(),
+//     end: (moment.tz('2018-10-02' + timetable['P1'].end, 'Europe/Rome').utc()).toDate(),
+//     summary: user.classes['p6'].value.s1
+//   });
+//   cal.createEvent({
+//     start: (moment.tz('2018-10-02' + timetable['P2'].start, 'Europe/Rome').utc()).toDate(),
+//     end: (moment.tz('2018-10-02' + timetable['P2'].end, 'Europe/Rome').utc()).toDate(),
+//     summary: user.classes['p7'].value.s1
+//   });
+//   cal.createEvent({
+//     start: (moment.tz('2018-10-02' + timetable['P3'].start, 'Europe/Rome').utc()).toDate(),
+//     end: (moment.tz('2018-10-02' + timetable['P3'].end, 'Europe/Rome').utc()).toDate(),
+//     summary: user.classes['p1'].value.s1
+//   });
+//   cal.createEvent({
+//     start: (moment.tz('2018-10-02' + timetable['P4'].start, 'Europe/Rome').utc()).toDate(),
+//     end: (moment.tz('2018-10-02' + timetable['P4'].end, 'Europe/Rome').utc()).toDate(),
+//     summary: user.classes['p2'].value.s1
+//   });
+//   cal.createEvent({
+//     start: (moment.tz('2018-10-02' + timetable['P5'].start, 'Europe/Rome').utc()).toDate(),
+//     end: (moment.tz('2018-10-02' + timetable['P5'].end, 'Europe/Rome').utc()).toDate(),
+//     summary: user.classes['p3'].value.s1
+//   });
+//
+//   cal.createEvent({
+//     start: (moment.tz('2018-10-03' + timetable['P1'].start, 'Europe/Rome').utc()).toDate(),
+//     end: (moment.tz('2018-10-03' + timetable['P1'].end, 'Europe/Rome').utc()).toDate(),
+//     summary: user.classes['p4'].value.s1
+//   });
+//   cal.createEvent({
+//     start: (moment.tz('2018-10-03' + timetable['P2'].start, 'Europe/Rome').utc()).toDate(),
+//     end: (moment.tz('2018-10-03' + timetable['P2'].end, 'Europe/Rome').utc()).toDate(),
+//     summary: user.classes['p5'].value.s1
+//   });
+//   cal.createEvent({
+//     start: (moment.tz('2018-10-03' + timetable['P3'].start, 'Europe/Rome').utc()).toDate(),
+//     end: (moment.tz('2018-10-03' + timetable['P3'].end, 'Europe/Rome').utc()).toDate(),
+//     summary: user.classes['p6'].value.s1
+//   });
+//   cal.createEvent({
+//     start: (moment.tz('2018-10-03' + timetable['P4'].start, 'Europe/Rome').utc()).toDate(),
+//     end: (moment.tz('2018-10-03' + timetable['P4'].end, 'Europe/Rome').utc()).toDate(),
+//     summary: user.classes['p7'].value.s1
+//   });
+//   cal.createEvent({
+//     start: (moment.tz('2018-10-03' + timetable['P5'].start, 'Europe/Rome').utc()).toDate(),
+//     end: (moment.tz('2018-10-03' + timetable['P5'].end, 'Europe/Rome').utc()).toDate(),
+//     summary: user.classes['p1'].value.s1
+//   });
+//
+//   cal.createEvent({
+//     start: (moment.tz('2018-10-04' + timetable['P1'].start, 'Europe/Rome').utc()).toDate(),
+//     end: (moment.tz('2018-10-04' + timetable['P1'].end, 'Europe/Rome').utc()).toDate(),
+//     summary: user.classes['p2'].value.s1
+//   });
+//   cal.createEvent({
+//     start: (moment.tz('2018-10-04' + timetable['P2'].start, 'Europe/Rome').utc()).toDate(),
+//     end: (moment.tz('2018-10-04' + timetable['P2'].end, 'Europe/Rome').utc()).toDate(),
+//     summary: user.classes['p3'].value.s1
+//   });
+//   cal.createEvent({
+//     start: (moment.tz('2018-10-04' + timetable['P3'].start, 'Europe/Rome').utc()).toDate(),
+//     end: (moment.tz('2018-10-04' + timetable['P3'].end, 'Europe/Rome').utc()).toDate(),
+//     summary: user.classes['p4'].value.s1
+//   });
+//   cal.createEvent({
+//     start: (moment.tz('2018-10-04' + timetable['P4'].start, 'Europe/Rome').utc()).toDate(),
+//     end: (moment.tz('2018-10-04' + timetable['P4'].end, 'Europe/Rome').utc()).toDate(),
+//     summary: user.classes['p5'].value.s1
+//   });
+//   cal.createEvent({
+//     start: (moment.tz('2018-10-04' + timetable['P5'].start, 'Europe/Rome').utc()).toDate(),
+//     end: (moment.tz('2018-10-04' + timetable['P5'].end, 'Europe/Rome').utc()).toDate(),
+//     summary: user.classes['p6'].value.s1
+//   });
+//
+//   cal.createEvent({
+//     start: (moment.tz('2018-10-05' + timetable['P1'].start, 'Europe/Rome').utc()).toDate(),
+//     end: (moment.tz('2018-10-05' + timetable['P1'].end, 'Europe/Rome').utc()).toDate(),
+//     summary: user.classes['p7'].value.s1
+//   });
+//   cal.createEvent({
+//     start: (moment.tz('2018-10-05' + timetable['P2'].start, 'Europe/Rome').utc()).toDate(),
+//     end: (moment.tz('2018-10-05' + timetable['P2'].end, 'Europe/Rome').utc()).toDate(),
+//     summary: user.classes['p1'].value.s1
+//   });
+//   cal.createEvent({
+//     start: (moment.tz('2018-10-05' + timetable['P3'].start, 'Europe/Rome').utc()).toDate(),
+//     end: (moment.tz('2018-10-05' + timetable['P3'].end, 'Europe/Rome').utc()).toDate(),
+//     summary: user.classes['p2'].value.s1
+//   });
+//   cal.createEvent({
+//     start: (moment.tz('2018-10-05' + timetable['P4'].start, 'Europe/Rome').utc()).toDate(),
+//     end: (moment.tz('2018-10-05' + timetable['P4'].end, 'Europe/Rome').utc()).toDate(),
+//     summary: user.classes['p3'].value.s1
+//   });
+//   cal.createEvent({
+//     start: (moment.tz('2018-10-05' + timetable['P5'].start, 'Europe/Rome').utc()).toDate(),
+//     end: (moment.tz('2018-10-05' + timetable['P5'].end, 'Europe/Rome').utc()).toDate(),
+//     summary: user.classes['p4'].value.s1
+//   });
+//
+// }

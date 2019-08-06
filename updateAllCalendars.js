@@ -1,3 +1,5 @@
+// This has to do with making stuff run on Heroku. It basically sets up the website.
+
 const fetch = require('node-fetch');
 const mongoose = require('mongoose');
 require('dotenv').config({ path: 'variables.env' });

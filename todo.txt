@@ -12,7 +12,7 @@ X.Get live calendar data and store in MongoDB
 X.Store user session in a cookie and update all references to session | Can't be done, sorry.
 X.Create the congrats page
 X.Test edit user option
-X.Fix all the damn tmps and todos !!Alerts still none functional!! -> Alerts are a client issue. Can't be bothered to fix.
+X.Fix all the damn tmps and todos !!Alerts still not functional!! -> Alerts are a client issue. Can't be bothered to fix.
 X.Create the button links and name
 X. Create the pop-under in order to show instructions | Won't be done, sorry.
 X.Add a title and favicon to your shit
